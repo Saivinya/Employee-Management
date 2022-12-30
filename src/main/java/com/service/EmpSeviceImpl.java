@@ -1,5 +1,7 @@
 package com.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +48,17 @@ public class EmpSeviceImpl implements EmpService {
 	public Boolean deleteEmp(int id) throws ResourceNotFoundException {
 		Employee e= empRepoo.findById(id).orElseThrow(()-> new ResourceNotFoundException("Employee Doesn't exists"));
 	 return true;
+	}
+
+	@Override
+	public List<Employee> getListofEmployees() {
+		return empRepoo.findAll();
+	}
+
+	@Override
+	public List<Employee> addListOfEmployees(List<Employee> em) {
+		
+		return empRepoo.saveAll(em);
 	}
 
 }

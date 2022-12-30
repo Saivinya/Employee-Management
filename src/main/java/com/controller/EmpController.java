@@ -1,5 +1,7 @@
 package com.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,46 +25,42 @@ public class EmpController {
 
 	@Autowired
 	private EmpService empService;
-	
+
 	@GetMapping(path = "/getEmp/{id}")
-	public ResponseEntity<Employee> getUser( @PathVariable(value = "id") int id) throws ResourceNotFoundException
-	{
+	public ResponseEntity<Employee> getUser(@PathVariable(value = "id") int id) throws ResourceNotFoundException {
 		Employee e = empService.getEmp(id);
 		return ResponseEntity.ok(e);
 	}
-	
+
 	@PostMapping(path = "/addEmp")
-	public ResponseEntity<Employee> addUser(@Valid @RequestBody Employee e) throws Exception
-	{
+	public ResponseEntity<Employee> addUser(@Valid @RequestBody Employee e) throws Exception {
 		Employee e1 = empService.addEmp(e);
 		return ResponseEntity.ok(e1);
 	}
-	
+
 	@PutMapping(path = "/update/{id}")
-	public ResponseEntity<Employee> updateUser(@PathVariable(value = "id") int id, @RequestBody Employee e) throws Exception
-	{
-		Employee e1 = empService.updateEmp(e,id);
+	public ResponseEntity<Employee> updateUser(@PathVariable(value = "id") int id, @RequestBody Employee e)
+			throws Exception {
+		Employee e1 = empService.updateEmp(e, id);
 		return ResponseEntity.ok(e1);
 	}
-	
+
 	@DeleteMapping(path = "/delete/{id}")
-	public ResponseEntity<Boolean> deleteEmployee(@PathVariable int id) throws ResourceNotFoundException
-	{
+	public ResponseEntity<Boolean> deleteEmployee(@PathVariable int id) throws ResourceNotFoundException {
 		Boolean s = empService.deleteEmp(id);
 		return ResponseEntity.ok(s);
 	}
+
+	@GetMapping("/findAll")
+	public ResponseEntity<?> getAll() {
+		return ResponseEntity.ok(empService.getListofEmployees());
+	}
 	
+	@PostMapping("/addListOfEmp")
+	public ResponseEntity<?> addList(@RequestBody List<Employee> list)
+	{
+		return ResponseEntity.ok(empService.addListOfEmployees(list));
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }
