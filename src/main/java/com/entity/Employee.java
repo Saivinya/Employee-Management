@@ -29,5 +29,8 @@ public class Employee {
 	@Size(min = 3,message = "Length should be more then 3 characters")
 	private String eName;
 	
+	private String designation;
+	
 	private String eSalary;
 }
+
